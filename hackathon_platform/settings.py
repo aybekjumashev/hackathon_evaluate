@@ -117,7 +117,6 @@ USE_I18N = True # Халқаролаштиришни ёқиш
 
 USE_TZ = True
 
-FORCE_SCRIPT_NAME = '/final'
 
 
 # Static files (CSS, JavaScript, Images)
@@ -137,4 +136,4 @@ LOGIN_REDIRECT_URL = 'evaluate'
 LOGOUT_REDIRECT_URL = 'login'
 LOGIN_URL = 'login'
 
-LANGUAGE_COOKIE_PATH = '/'
+LANGUAGE_COOKIE_PATH = '/final/'
