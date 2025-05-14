@@ -117,6 +117,8 @@ USE_I18N = True # Халқаролаштиришни ёқиш
 
 USE_TZ = True
 
+FORCE_SCRIPT_NAME = '/final'
+
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.2/howto/static-files/
