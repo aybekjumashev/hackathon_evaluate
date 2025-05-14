@@ -135,5 +135,3 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 LOGIN_REDIRECT_URL = 'evaluate'
 LOGOUT_REDIRECT_URL = 'login'
 LOGIN_URL = 'login'
-
-LANGUAGE_COOKIE_PATH = '/final/'

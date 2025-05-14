@@ -20,7 +20,7 @@ urlpatterns = [
 # Тил префикси билан ишлайдиган URL'лар
 urlpatterns += i18n_patterns(
     path('accounts/login/', auth_views.LoginView.as_view(template_name='judging/login.html'), name='login'),
-    path('accounts/logout/', auth_views.LogoutView.as_view(next_page='login'), name='logout'),
+    path('final/accounts/logout/', auth_views.LogoutView.as_view(next_page='login'), name='logout'),
     path('evaluate/', judging_views.evaluate_view, name='evaluate'),
     path('', judging_views.public_results_view, name='public_results'), # Бош саҳифа
     path('evaluate/<int:team_id>/', judging_views.evaluate_team_view, name='evaluate_team'),
