@@ -15,7 +15,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-7%10%8!bky0o@@l8#t4v0)a3k@ek$)$(je2v5gb*mml5l36u6f'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = ['*']
 
@@ -35,8 +35,8 @@ INSTALLED_APPS = [
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
-    'django.contrib.sessions.middleware.SessionMiddleware', # LocaleMiddleware дан олдин
-    'django.middleware.locale.LocaleMiddleware',          # <--- ҚЎШИНГ (CommonMiddleware дан олдин)
+    'django.contrib.sessions.middleware.SessionMiddleware', 
+    'django.middleware.locale.LocaleMiddleware',          
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
@@ -58,7 +58,7 @@ TEMPLATES = [
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
                 'django.template.context_processors.i18n',
-                'judging.context_processors.site_languages', # <--- Қўшинг
+                'judging.context_processors.site_languages',
             ],
         },
     },
@@ -107,7 +107,6 @@ LANGUAGES = [
     # ('uz', _('Oʻzbekcha')),   # Агар керак бўлса, ўзбек тилини ҳам қўшишингиз мумкин
 ]
 
-# Таржима файллар жойлашадиган йўл
 LOCALE_PATHS = [
     BASE_DIR / 'locale',
 ]
@@ -122,7 +121,7 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.2/howto/static-files/
 
-STATIC_URL = '/final/static/'
+STATIC_URL = '/static/'
 STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]
 
 # Default primary key field type
