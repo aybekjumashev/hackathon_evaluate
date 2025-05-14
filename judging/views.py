@@ -14,7 +14,7 @@ import qrcode
 from django.http import HttpResponse
 
 def qr_code_view(request):
-    base_url = request.build_absolute_uri('/')  
+    base_url = request.build_absolute_uri('/final/')  
 
     qr = qrcode.QRCode(
         version=1,
