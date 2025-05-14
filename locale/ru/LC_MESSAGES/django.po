@@ -1,0 +1,478 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Hackathon Platform 1.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2025-05-14 23:12+0500\n"
+"PO-Revision-Date: 2025-05-15 10:00+0500\n"
+"Last-Translator: Ваше Имя <vash.email@example.com>\n"
+"Language-Team: Russian <ru@li.org>\n"
+"Language: ru\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
+"n%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || "
+"(n%100>=11 && n%100<=14)? 2 : 3);\n"
+
+#: .\hackathon_platform\settings.py:105
+msgid "Qaraqalpaqsha"
+msgstr "Каракалпакский"
+
+#: .\hackathon_platform\settings.py:106
+msgid "Русский"
+msgstr "Русский"
+
+#: .\judging\admin.py:24
+msgid "Ҳакам профили (Йўналиш)"
+msgstr "Профиль судьи (Направление)"
+
+#: .\judging\models.py:8
+msgid "Йўналиш номи"
+msgstr "Название направления"
+
+#: .\judging\models.py:9
+msgid "Қисқача тавсиф"
+msgstr "Краткое описание"
+
+#: .\judging\models.py:15
+msgid "Йўналиш"
+msgstr "Направление"
+
+#: .\judging\models.py:16
+msgid "Йўналишлар"
+msgstr "Направления"
+
+#: .\judging\models.py:20
+msgid "Жамоа номи"
+msgstr "Название команды"
+
+#: .\judging\models.py:24
+msgid "Йўналиши"
+msgstr "Направление (команды)"
+
+#: .\judging\models.py:31 .\judging\models.py:61
+msgid "Жамоа"
+msgstr "Команда"
+
+#: .\judging\models.py:32
+msgid "Жамоалар"
+msgstr "Команды"
+
+#: .\judging\models.py:36
+msgid "Тартиб рақами (T/P)"
+msgstr "Порядковый номер (№ п/п)"
+
+#: .\judging\models.py:37 .\judging\models.py:48
+msgid "Баҳолаш мезони"
+msgstr "Критерий оценивания"
+
+#: .\judging\models.py:38
+msgid "Максимал балл"
+msgstr "Максимальный балл"
+
+#: .\judging\models.py:39
+msgid "Изоҳ (мезонни баҳолаш учун қўлланма)"
+msgstr "Примечание (руководство по оценке критерия)"
+
+#: .\judging\models.py:49
+msgid "Баҳолаш мезонлари"
+msgstr "Критерии оценивания"
+
+#: .\judging\models.py:60
+msgid "Ҳакам"
+msgstr "Судья"
+
+#: .\judging\models.py:62
+msgid "Мезон"
+msgstr "Критерий"
+
+#: .\judging\models.py:64
+msgid "Берилган балл"
+msgstr "Присвоенный балл"
+
+#: .\judging\models.py:71
+msgid "Ҳолати"
+msgstr "Статус"
+
+#: .\judging\models.py:73
+msgid "Баҳолаш вақти"
+msgstr "Время оценивания"
+
+#: .\judging\models.py:74
+msgid "Охирги янгиланиш"
+msgstr "Последнее обновление"
+
+#: .\judging\models.py:88
+msgid "Баҳо"
+msgstr "Оценка"
+
+#: .\judging\models.py:89
+msgid "Баҳолар"
+msgstr "Оценки"
+
+#: .\judging\models.py:96
+msgid "Ҳакам (Фойдаланувчи)"
+msgstr "Судья (Пользователь)"
+
+#: .\judging\models.py:103
+msgid "Масъул йўналиш (ихтиёрий)"
+msgstr "Ответственное направление (необязательно)"
+
+#: .\judging\models.py:104
+msgid ""
+"Агар йўналиш танланмаса, ҳакам барча йўналишлардаги жамоаларни баҳолай олади."
+msgstr ""
+"Если направление не выбрано, судья может оценивать команды по всем "
+"направлениям."
+
+#: .\judging\models.py:113
+msgid "Ҳакам профили"
+msgstr "Профиль судьи"
+
+#: .\judging\models.py:114
+msgid "Ҳакам профиллари"
+msgstr "Профили судей"
+
+#: .\judging\views.py:120
+msgid "Оценки для этой команды уже были финализированы."
+msgstr "Оценки для этой команды уже были финализированы."
+
+#: .\judging\views.py:125
+msgid "Тип сохранения оценок не выбран."
+msgstr "Тип сохранения оценок не выбран."
+
+#: .\judging\views.py:160
+msgid "неизвестный"
+msgstr "неизвестный"
+
+#: .\judging\views.py:162 .\templates\judging\evaluate_team.html:51
+#: .\templates\judging\evaluate_team.html:110
+msgid "Итоговая"
+msgstr "Итоговая"
+
+#: .\judging\views.py:164 .\templates\judging\evaluate_team.html:53
+#: .\templates\judging\evaluate_team.html:105
+msgid "Черновик"
+msgstr "Черновик"
+
+#: .\templates\base.html:10
+msgid "Хакатон"
+msgstr "Хакатон"
+
+#: .\templates\base.html:22
+msgid "Результаты Хакатона"
+msgstr "Результаты Хакатона"
+
+#: .\templates\base.html:23
+msgid "Toggle navigation"
+msgstr "Переключить навигацию"
+
+#: .\templates\base.html:31
+msgid "Тил"
+msgstr "Язык"
+
+#: .\templates\base.html:49
+msgid "Тиллар мавжуд эмас"
+msgstr ""
+
+#: .\templates\base.html:56 .\templates\base.html:101 .\templates\base.html:106
+msgid "QR код"
+msgstr "QR-код"
+
+#: .\templates\base.html:59
+msgid "Оценивание"
+msgstr "Оценивание"
+
+#: .\templates\base.html:70
+msgid "Выйти"
+msgstr "Выйти"
+
+#: .\templates\base.html:86
+msgid "Close"
+msgstr "Закрыть"
+
+#: .\templates\base.html:102 .\templates\judging\public_results.html:74
+#: .\templates\judging\public_results.html:82
+msgid "Закрыть"
+msgstr "Закрыть"
+
+#: .\templates\judging\evaluate_team.html:5
+#, python-format
+msgid "Оценка: %(team.name)s"
+msgstr "Оценка: %(team.name)s"
+
+#: .\templates\judging\evaluate_team.html:26
+#, python-format
+msgid "Оценка команды: %(team.name)s"
+msgstr "Оценка команды: %(team.name)s"
+
+#: .\templates\judging\evaluate_team.html:27
+msgid "Выберите необходимую оценку для каждого критерия."
+msgstr "Выберите необходимую оценку для каждого критерия."
+
+#: .\templates\judging\evaluate_team.html:31
+msgid ""
+"Все оценки для этой команды были вами финализированы. Их нельзя изменить."
+msgstr ""
+"Все оценки для этой команды были вами финализированы. Их нельзя изменить."
+
+#: .\templates\judging\evaluate_team.html:47
+msgid "Макс:"
+msgstr "Макс:"
+
+#: .\templates\judging\evaluate_team.html:47
+msgid "балл"
+msgstr "балл"
+
+#: .\templates\judging\evaluate_team.html:47
+msgid "балла"
+msgstr "балла"
+
+#: .\templates\judging\evaluate_team.html:47
+msgid "баллов"
+msgstr "баллов"
+
+#: .\templates\judging\evaluate_team.html:55 .\templates\judging\home.html:58
+msgid "Не оценено"
+msgstr "Не оценено"
+
+#: .\templates\judging\evaluate_team.html:65
+msgid "Ваша оценка:"
+msgstr "Ваша оценка:"
+
+#: .\templates\judging\evaluate_team.html:66
+#, python-format
+msgid "Оценка для %(criterion.name)s"
+msgstr "Оценка для %(criterion.name)s"
+
+#: .\templates\judging\evaluate_team.html:89
+msgid "Критерии оценивания еще не были добавлены."
+msgstr "Критерии оценивания еще не были добавлены."
+
+#: .\templates\judging\evaluate_team.html:100
+msgid "Завершение оценивания"
+msgstr "Завершение оценивания"
+
+#: .\templates\judging\evaluate_team.html:101
+msgid "Пожалуйста, выберите статус для ваших оценок."
+msgstr "Пожалуйста, выберите статус для ваших оценок."
+
+#: .\templates\judging\evaluate_team.html:102
+msgid "Завершение типа оценки"
+msgstr "Завершение типа оценки"
+
+#: .\templates\judging\evaluate_team.html:114
+msgid ""
+"Если выбрано \"Итоговая\", введенные оценки станут окончательными, не "
+"подлежащими изменению, и будут учтены в общих результатах."
+msgstr ""
+"Если выбрано \"Итоговая\", введенные оценки станут окончательными, не "
+"подлежащими изменению, и будут учтены в общих результатах."
+
+#: .\templates\judging\evaluate_team.html:123
+msgid "Сохранить Оценки"
+msgstr "Сохранить оценки"
+
+#: .\templates\judging\evaluate_team.html:126
+msgid "Отмена"
+msgstr "Отмена"
+
+#: .\templates\judging\evaluate_team.html:134
+msgid "Вернуться на главную"
+msgstr "Вернуться на главную"
+
+#: .\templates\judging\home.html:5 .\templates\judging\home.html:8
+msgid "Оценивание Команд"
+msgstr "Оценивание команд"
+
+#: .\templates\judging\home.html:9
+msgid ""
+"Выберите команды ниже, чтобы оценить их по критериям или просмотреть ваши "
+"оценки."
+msgstr ""
+"Выберите команды ниже, чтобы оценить их по критериям или просмотреть выставленные вами "
+"оценки."
+
+#: .\templates\judging\home.html:22 .\templates\judging\public_results.html:95
+msgid "Название Команды"
+msgstr "Название команды"
+
+#: .\templates\judging\home.html:23 .\templates\judging\public_results.html:104
+msgid "Направление"
+msgstr "Направление"
+
+#: .\templates\judging\home.html:27
+#, python-format
+msgid "К%(order_num)s"
+msgstr "К%(order_num)s"
+
+#: .\templates\judging\home.html:30
+msgid "Статус"
+msgstr "Статус"
+
+#: .\templates\judging\home.html:31
+msgid "Действия"
+msgstr "Действия"
+
+#: .\templates\judging\home.html:52
+msgid "Завершено"
+msgstr "Завершено"
+
+#: .\templates\judging\home.html:54
+msgid "В черновике"
+msgstr "В черновике"
+
+#: .\templates\judging\home.html:56
+msgid "Частично оценено"
+msgstr "Частично оценено"
+
+#: .\templates\judging\home.html:65
+msgid "Просмотреть оценки (нельзя изменить)"
+msgstr "Просмотреть оценки (нельзя изменить)"
+
+#: .\templates\judging\home.html:67
+msgid "Оценить / Редактировать"
+msgstr "Оценить / Редактировать"
+
+#: .\templates\judging\home.html:70
+msgid "Смотреть"
+msgstr "Смотреть"
+
+#: .\templates\judging\home.html:72
+msgid "Оценить"
+msgstr "Оценить"
+
+#: .\templates\judging\home.html:82
+msgid "В настоящее время нет команд для оценки или критерии не введены."
+msgstr "В настоящее время нет команд для оценки или критерии не введены."
+
+#: .\templates\judging\login.html:4
+msgid "Вход в систему"
+msgstr "Вход в систему"
+
+#: .\templates\judging\login.html:13
+msgid "Ваш логин или пароль не совпадают. Пожалуйста, попробуйте снова."
+msgstr "Ваш логин или пароль не совпадают. Пожалуйста, попробуйте снова."
+
+#: .\templates\judging\login.html:19
+msgid ""
+"Ваша учетная запись не имеет прав доступа к этой странице. Для продолжения, "
+"войдите с другой учетной записью."
+msgstr ""
+"Ваша учетная запись не имеет прав доступа к этой странице. Для продолжения, "
+"войдите с другой учетной записью."
+
+#: .\templates\judging\login.html:21
+msgid "Пожалуйста, войдите в систему, чтобы просмотреть эту страницу."
+msgstr "Пожалуйста, войдите в систему, чтобы просмотреть эту страницу."
+
+#: .\templates\judging\login.html:26 .\templates\judging\login.html:27
+msgid "Логин"
+msgstr "Логин"
+
+#: .\templates\judging\login.html:30 .\templates\judging\login.html:31
+msgid "Пароль"
+msgstr "Пароль"
+
+#: .\templates\judging\login.html:34
+msgid "Войти"
+msgstr "Войти"
+
+#: .\templates\judging\public_results.html:6
+msgid "Общие Результаты (по Направлениям)"
+msgstr "Общие Результаты (по Направлениям)"
+
+# msgid "Общие Результаты Оценивания"
+# msgstr "Общие итоги оценивания"
+# Юқоридаги икки қаторда msgstr такрорлангани учун хатоликка ўхшайди, биттасини қолдирамиз
+#: .\templates\judging\public_results.html:42
+msgid "Общие Результаты Оценивания"
+msgstr "Общие итоги оценивания"
+
+#: .\templates\judging\public_results.html:45
+#: .\templates\judging\public_results.html:107
+msgid "Обновление..."
+msgstr "Обновление..."
+
+#: .\templates\judging\public_results.html:73
+#: .\templates\judging\public_results.html:109
+msgid "Детали Оценки Команды:"
+msgstr "Детали оценки команды:"
+
+#: .\templates\judging\public_results.html:93
+#, python-brace-format
+msgid "В этом направлении ({directionName}) пока нет итоговых результатов."
+msgstr "В этом направлении ({directionName}) пока нет итоговых результатов."
+
+#: .\templates\judging\public_results.html:94
+msgid "№"
+msgstr "№"
+
+#: .\templates\judging\public_results.html:96
+msgid "К"
+msgstr "К"
+
+#: .\templates\judging\public_results.html:97
+msgid "Критерий"
+msgstr "Критерий"
+
+#: .\templates\judging\public_results.html:98
+msgid "Макс. балл:"
+msgstr "Макс. балл:"
+
+#: .\templates\judging\public_results.html:99
+msgid "для каждого судьи"
+msgstr "для каждого судьи"
+
+#: .\templates\judging\public_results.html:100
+msgid "Общий балл"
+msgstr "Общий балл"
+
+#: .\templates\judging\public_results.html:101
+msgid "Команда"
+msgstr "Команда"
+
+#: .\templates\judging\public_results.html:102
+msgid ""
+"Произошла ошибка при загрузке результатов. Пожалуйста, попробуйте позже."
+msgstr ""
+"Произошла ошибка при загрузке результатов. Пожалуйста, попробуйте позже."
+
+#: .\templates\judging\public_results.html:103
+msgid ""
+"В настоящее время нет доступных направлений для отображения результатов."
+msgstr ""
+"В настоящее время нет доступных направлений для отображения результатов."
+
+#: .\templates\judging\public_results.html:105
+msgid "Ошибка при получении данных из API:"
+msgstr "Ошибка при получении данных из API:"
+
+#: .\templates\judging\public_results.html:106
+msgid "Ошибка при обновлении данных:"
+msgstr "Ошибка при обновлении данных:"
+
+#: .\templates\judging\public_results.html:110
+msgid "Загрузка данных..."
+msgstr "Загрузка данных..."
+
+#: .\templates\judging\public_results.html:111
+msgid "Судья"
+msgstr "Жюри"
+
+#: .\templates\judging\public_results.html:112
+msgid "Для этой команды нет завершенных оценок от судей."
+msgstr "Для этой команды нет завершенных оценок от судей."
+
+#: .\templates\judging\public_results.html:113
+#, fuzzy
+#| msgid ""
+#| "В настоящее время нет доступных направлений для отображения результатов."
+msgid "Не удалось определить команду для отображения деталей."
+msgstr ""
+"В настоящее время нет доступных направлений для отображения результатов."

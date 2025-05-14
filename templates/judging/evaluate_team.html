@@ -1,0 +1,142 @@
+{% extends "base.html" %}
+{% load judging_extras %} {# для фильтров get_item и get_score_range #}
+{% load i18n %}
+
+{% block title %}{% blocktranslate %}Оценка: {{ team.name }}{% endblocktranslate %}{% endblock %}
+
+{% block extra_css %}
+{{ block.super }}
+<style>
+    /* Стили для радиокнопок оценок (без изменений) */
+    .score-radio-group .btn-check + .btn {
+        margin-right: 0px;
+        margin-bottom: 3px;
+        padding: 0.375rem 0.6rem;
+        font-size: 0.9rem;
+        min-width: 38px;
+        text-align: center;
+    }
+    .card-body {
+        min-height: 150px;
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<h2>{% blocktranslate %}Оценка команды: {{ team.name }}{% endblocktranslate %}</h2>
+<p>{% translate "Выберите необходимую оценку для каждого критерия." %}</p>
+
+{% if all_scores_final %}
+<div class="alert alert-success" role="alert">
+    {% translate "Все оценки для этой команды были вами финализированы. Их нельзя изменить." %}
+</div>
+{% endif %}
+
+<form method="post">
+    {% csrf_token %}
+    <div class="row">
+        {% for criterion in criteria %}
+        {% with current_criterion_status=statuses|get_item:criterion.id current_criterion_score=scores|get_item:criterion.id %}
+        <div class="col-lg-6 mb-4">
+            <div class="card h-100 {% if current_criterion_status == STATUS_FINAL %}border-success shadow-sm{% elif current_criterion_status == STATUS_DRAFT %}border-warning{% else %}border-light{% endif %}">
+                <div class="card-header d-flex justify-content-between align-items-center {% if current_criterion_status == STATUS_FINAL %}bg-success-subtle{% elif current_criterion_status == STATUS_DRAFT %}bg-warning-subtle{% endif %}">
+                    <div>
+                        {# criterion.name моделларидан _() билан ўралган ҳолда келади #}
+                        <strong>{{ criterion.order }}. {{ criterion.name }}</strong>
+                        <small class="text-muted d-block">
+                            ({% translate "Макс:" %} {{ criterion.max_score }} {% if criterion.max_score == 1 %}{% translate "балл" %}{% elif criterion.max_score >= 2 and criterion.max_score <= 4 %}{% translate "балла" %}{% else %}{% translate "баллов" %}{% endif %})
+                        </small>
+                    </div>
+                    {% if current_criterion_status == STATUS_FINAL %}
+                        <span class="badge bg-success rounded-pill">{% translate "Итоговая" %}</span>
+                    {% elif current_criterion_status == STATUS_DRAFT %}
+                        <span class="badge bg-warning text-dark rounded-pill">{% translate "Черновик" %}</span>
+                    {% else %}
+                        <span class="badge bg-secondary rounded-pill">{% translate "Не оценено" %}</span>
+                    {% endif %}
+                </div>
+                <div class="card-body d-flex flex-column">
+                    {% if criterion.description %}
+                    {# criterion.description моделларидан _() билан ўралган ҳолда келади #}
+                    <p class="card-text text-muted mb-2"><small>{{ criterion.description|linebreaksbr }}</small></p>
+                    {% endif %}
+
+                    <div class="mt-auto">
+                        <label class="form-label d-block mb-2"><strong>{% translate "Ваша оценка:" %}</strong></label>
+                        <div class="btn-group score-radio-group flex-wrap" role="group" aria-label="{% blocktranslate %}Оценка для {{criterion.name}}{% endblocktranslate %}">
+                            {% for score_option_value in criterion.max_score|get_score_range %}
+                                <input type="radio" class="btn-check"
+                                       name="score_for_criterion_{{ criterion.id }}"
+                                       id="score_{{ criterion.id }}_{{ score_option_value }}"
+                                       value="{{ score_option_value }}"
+                                       autocomplete="off"
+                                       {% if current_criterion_score == score_option_value and current_criterion_score is not None %}checked{% endif %}
+                                       {% if current_criterion_status == STATUS_FINAL or all_scores_final %}disabled{% endif %}
+                                       required>
+                                <label class="btn {% if current_criterion_score == score_option_value and current_criterion_score is not None %}btn-primary{% else %}btn-outline-primary{% endif %}"
+                                       for="score_{{ criterion.id }}_{{ score_option_value }}">
+                                    {{ score_option_value }}
+                                </label>
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% endwith %}
+        {% empty %}
+        <div class="col-12">
+            <div class="alert alert-warning">{% translate "Критерии оценивания еще не были добавлены." %}</div>
+        </div>
+        {% endfor %}
+    </div>
+
+    {% if criteria and not all_scores_final %}
+    <hr class="my-4">
+    <div class="row justify-content-center">
+        <div class="col-md-8 col-lg-6">
+            <div class="card shadow-sm">
+                <div class="card-body text-center">
+                    <h5 class="card-title">{% translate "Завершение оценивания" %}</h5>
+                    <p class="card-text text-muted">{% translate "Пожалуйста, выберите статус для ваших оценок." %}</p>
+                    <div class="btn-group d-block" role="group" aria-label="{% translate 'Завершение типа оценки' %}">
+                        <input type="radio" class="btn-check" name="submission_finality" id="btnradio_draft" value="{{ STATUS_DRAFT }}" autocomplete="off" {% if default_submission_status == STATUS_DRAFT or not default_submission_status %}checked{% endif %}>
+                        <label class="btn btn btn-outline-warning px-4" for="btnradio_draft">
+                            <i class="bi bi-pencil-square"></i> {% translate "Черновик" %}
+                        </label>
+
+                        <input type="radio" class="btn-check" name="submission_finality" id="btnradio_final" value="{{ STATUS_FINAL }}" autocomplete="off" {% if default_submission_status == STATUS_FINAL %}checked{% endif %}>
+                        <label class="btn btn btn-outline-success px-4" for="btnradio_final">
+                            <i class="bi bi-check-circle-fill"></i> {% translate "Итоговая" %}
+                        </label>
+                    </div>
+                    <small class="form-text text-muted d-block mt-2">
+                        {% translate 'Если выбрано "Итоговая", введенные оценки станут окончательными, не подлежащими изменению, и будут учтены в общих результатах.' %}
+                    </small>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="mt-4 text-center">
+        <button type="submit" class="btn btn-primary btn px-5 mb-3">
+            <i class="bi bi-save-fill"></i> {% translate "Сохранить Оценки" %}
+        </button>
+        <a href="{% url 'evaluate' %}" class="btn btn-secondary btn px-4 ms-2  mb-3">
+         <i class="bi bi-x-lg"></i> {% translate "Отмена" %}
+         </a>
+    </div>
+
+    {% elif not criteria %}
+        {# Критерии не введены, ничего не показываем #}
+    {% else %} {# Все оценки уже итоговые #}
+         <div class="mt-4 text-center">
+              <a href="{% url 'evaluate' %}" class="btn btn-secondary btn-lg"><i class="bi bi-arrow-left-circle-fill"></i> {% translate "Вернуться на главную" %}</a>
+         </div>
+    {% endif %}
+</form>
+{% endblock %}
+
+{% block extra_js %}
+{# JavaScript валидация здесь не требуется, так как радиокнопки предоставляют корректные значения #}
+{% endblock %}

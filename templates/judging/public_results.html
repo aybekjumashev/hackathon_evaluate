@@ -1,0 +1,414 @@
+{% extends "base.html" %}
+{% load judging_extras %}
+{% load static %}
+{% load i18n %} {# <--- 1. i18n тегини юклаймиз #}
+
+{% block title %}{% translate "Общие Результаты (по Направлениям)" %}{% endblock %}
+
+{% block extra_css %}
+{{ block.super }}
+<style>
+    /* Стили для горизонтальной прокрутки вкладок */
+    .nav-tabs-scrollable {
+        display: flex;
+        flex-wrap: nowrap;
+        overflow-x: auto;
+        overflow-y: hidden;
+        margin-bottom: -10px; /* Компенсация padding-bottom для выравнивания */
+        -webkit-overflow-scrolling: touch; /* Плавная прокрутка на iOS */
+        scrollbar-width: thin; /* Для Firefox */
+        scrollbar-color: rgba(0,0,0,.2) rgba(0,0,0,.05); /* Для Firefox */
+    }
+
+    /* Стилизация полосы прокрутки для Webkit-браузеров (Chrome, Safari) */
+    .nav-tabs-scrollable::-webkit-scrollbar {
+        height: 8px; /* Толщина полосы прокрутки */
+    }
+    .nav-tabs-scrollable::-webkit-scrollbar-thumb {
+        background-color: rgba(0,0,0,.2); /* Цвет ползунка */
+        border-radius: 4px; /* Скругление углов ползунка */
+    }
+    .nav-tabs-scrollable::-webkit-scrollbar-track {
+        background: rgba(0,0,0,.05); /* Цвет трека (фона) полосы прокрутки */
+    }
+    .nav-link {
+        white-space: nowrap; /* Чтобы текст вкладок не переносился */
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="d-flex justify-content-between align-items-center mb-3">
+    <h2>{% translate "Общие Результаты Оценивания" %}</h2>
+    <span id="loading-indicator" style="display:none; font-size: 0.9em;" class="text-muted">
+        <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+        <span id="loading-indicator-text">{% translate "Обновление..." %}</span> {# <--- 2. HTMLдаги матнни таржима учун белгилаймиз #}
+    </span>
+</div>
+
+<!-- Контейнер для вкладок с возможностью горизонтальной прокрутки -->
+<div class="nav-tabs-scrollable-container"> <!-- Обертка для UL, если нужны доп. стили -->
+    <ul class="nav nav-tabs nav-tabs-scrollable" id="directionsTab" role="tablist">
+        <!-- Вкладки будут сгенерированы JavaScript -->
+    </ul>
+</div>
+
+<!-- Контент вкладок -->
+<div class="tab-content" id="directionsTabContent">
+    <!-- Содержимое вкладок будет сгенерировано JavaScript -->
+</div>
+
+
+
+
+<!-- <button type="button" class="btn btn-primary mb-3" data-bs-toggle="modal" data-bs-target="#teamDetailsModal">
+  Тест учун модал оч
+</button> -->
+
+<!-- Team Details Modal (бу жойида қолади) -->
+<div class="modal fade" id="teamDetailsModal" tabindex="-1" aria-labelledby="teamDetailsModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-xl modal-dialog-scrollable">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="teamDetailsModalLabel">{% translate "Детали Оценки Команды:" %} <span id="modalTeamName">Тест</span></h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="{% translate 'Закрыть' %}"></button>
+      </div>
+      <div class="modal-body">
+        <div id="teamDetailsContent" class="table-responsive">
+          <p>Бу тест модал контенти.</p>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">{% translate "Закрыть" %}</button>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}
+{% block extra_js %}
+{{ block.super }}
+<script>
+    // JavaScript учун таржима қилинган матнлар объекти
+    const js_i18n = {
+        no_results_in_direction: "{% translate 'В этом направлении ({directionName}) пока нет итоговых результатов.' %}",
+        team_num_header: "{% translate '№' %}",
+        team_name_header: "{% translate 'Название Команды' %}",
+        criterion_header_prefix: "{% translate 'К' %}",
+        criterion_tooltip_default: "{% translate 'Критерий' %}",
+        max_score_tooltip_prefix: "{% translate 'Макс. балл:' %}",
+        for_each_judge_tooltip_suffix: "{% translate 'для каждого судьи' %}",
+        total_score_header: "{% translate 'Общий балл' %}",
+        team_name_placeholder: "{% translate 'Команда' %}",
+        error_loading_results: "{% translate 'Произошла ошибка при загрузке результатов. Пожалуйста, попробуйте позже.' %}",
+        no_directions_available: "{% translate 'В настоящее время нет доступных направлений для отображения результатов.' %}",
+        direction_tab_default_prefix: "{% translate 'Направление' %}",
+        error_fetching_api_data: "{% translate 'Ошибка при получении данных из API:' %}",
+        error_updating_data: "{% translate 'Ошибка при обновлении данных:' %}",
+        loading_indicator_text_val: "{% translate 'Обновление...' %}",
+        // Модал учун янги матнлар
+        details_modal_title_prefix: "{% translate 'Детали Оценки Команды:' %}", // Буни modal title'да ишлатишимиз мумкин
+        loading_data_text: "{% translate 'Загрузка данных...' %}",
+        judge_col_header: "{% translate 'Судья' %}",
+        no_evaluations_found: "{% translate 'Для этой команды нет завершенных оценок от судей.' %}",
+        error_undefined_team: "{% translate 'Не удалось определить команду для отображения деталей.' %}"
+    };
+
+    // Умумий tooltip'ларни инициализация қилиш функцияси
+    function initializePageTooltips() {
+        var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]:not(.modal [data-bs-toggle="tooltip"])')); // Модал ичидагиларни ҳисобга олмаймиз
+        // Эски tooltip'ларни ўчириш керак эмас, чунки бу фақат саҳифа юкланганда бир марта чақирилади
+        tooltipTriggerList.map(function (tooltipTriggerEl) {
+          return new bootstrap.Tooltip(tooltipTriggerEl);
+        });
+    }
+    
+    // Модал ичидаги tooltip'ларни инициализация қилиш функцияси
+    function initializeModalTooltips(modalContentElement) {
+        var modalTooltipTriggerList = [].slice.call(modalContentElement.querySelectorAll('[data-bs-toggle="tooltip"]'));
+        modalTooltipTriggerList.map(function (tooltipTriggerEl) {
+            // Агар tooltip аллақачон мавжуд бўлса, уни dispose қилиш яхши амалиёт
+            var existingTooltip = bootstrap.Tooltip.getInstance(tooltipTriggerEl);
+            if (existingTooltip) {
+                existingTooltip.dispose();
+            }
+            return new bootstrap.Tooltip(tooltipTriggerEl);
+        });
+    }
+
+    // Модал ёпилганда tooltip'ларни ўчириш функцияси
+    function disposeModalTooltips(modalContentElement) {
+        const tooltips = modalContentElement.querySelectorAll('[data-bs-toggle="tooltip"]');
+        tooltips.forEach(el => {
+            const tooltipInstance = bootstrap.Tooltip.getInstance(el);
+            if (tooltipInstance) {
+                tooltipInstance.dispose();
+            }
+        });
+    }
+
+    document.addEventListener('DOMContentLoaded', function () {
+        const directionsTab = document.getElementById('directionsTab');
+        const directionsTabContent = document.getElementById('directionsTabContent');
+        const loadingIndicator = document.getElementById('loading-indicator');
+        const loadingIndicatorText = document.getElementById('loading-indicator-text');
+        let currentActiveTabId = null;
+
+        // Модал элементлари
+        const teamDetailsModalEl = document.getElementById('teamDetailsModal');
+        const modalTeamNameEl = document.getElementById('modalTeamName'); // Модал сарлавҳасидаги команда номи учун span
+        const teamDetailsContentEl = document.getElementById('teamDetailsContent'); // Модал body'сининг контент қисми
+        let teamDetailsModalInstance = null;
+        if (teamDetailsModalEl) {
+            teamDetailsModalInstance = new bootstrap.Modal(teamDetailsModalEl);
+        }
+
+        // Асосий жадвални ясаш функцияси
+        function buildSingleTableHTML(results, criteriaList, directionName = "") {
+            if (!results || results.length === 0) {
+                return `<div class="alert alert-info mt-3">${js_i18n.no_results_in_direction.replace('{directionName}', directionName)}</div>`;
+            }
+            let tableHtml = `
+                <div class="table-responsive">
+                    <table class="table table-striped table-hover table-sm mt-2">
+                        <thead class="table-light">
+                            <tr>
+                                <th scope="col" style="width: 5%;">${js_i18n.team_num_header}</th>
+                                <th scope="col">${js_i18n.team_name_header}</th>`;
+            criteriaList.forEach(criterion => {
+                const tooltipTitle = `${criterion.name || js_i18n.criterion_tooltip_default} (${js_i18n.max_score_tooltip_prefix} ${criterion.max_score} ${js_i18n.for_each_judge_tooltip_suffix})`;
+                tableHtml += `<th scope="col" class="text-center" data-bs-toggle="tooltip" data-bs-placement="top" title="${tooltipTitle}">${js_i18n.criterion_header_prefix}${criterion.order} <small class="text-muted"></small></th>`;
+            });
+            tableHtml += `    <th scope="col" class="text-center">${js_i18n.total_score_header} <small class="text-muted"></small></th>
+                            </tr>
+                        </thead>
+                        <tbody>`;
+            results.forEach((item, index) => {
+                tableHtml += `<tr style="cursor: pointer;" class="team-row" data-team-id="${item.team_id}" data-team-name="${item.team_name || js_i18n.team_name_placeholder}" data-bs-toggle="modal" data-bs-target="#teamDetailsModal">
+                                <td>${index + 1}</td>
+                                <td><strong>${item.team_name || js_i18n.team_name_placeholder}</strong></td>`;
+                criteriaList.forEach(criterion => {
+                    const score = item.scores_by_criterion[criterion.id] !== undefined ? item.scores_by_criterion[criterion.id] : "0";
+                    tableHtml += `<td class="text-center">${score}</td>`;
+                });
+                tableHtml += `    <td class="text-center"><strong>${item.total_score}</strong></td>
+                            </tr>`;
+            });
+            tableHtml += `</tbody></table></div>`;
+            return tableHtml;
+        }
+
+        // Актив tab'ни кўринишга келтириш
+        function scrollActiveTabIntoView() {
+            const activeTabButton = directionsTab.querySelector('.nav-link.active');
+            if (activeTabButton) {
+                activeTabButton.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
+            }
+        }
+
+        // Асосий tab'ларни юклаш ва ясаш функцияси
+        async function fetchAndBuildTabs() {
+            // ... (аввалги кодингиз бу ерда) ...
+            // Бу функция ичида, try...catch...finally блокининг try қисми охирида,
+            // initializePageTooltips() чақирилиши керак, агар у ерда tooltip'лар бўлса.
+            // Ҳозирги ҳолатда buildSingleTableHTML ичида tooltip'лар яратилади,
+            // шунинг учун fetchAndBuildTabs муваффақиятли тугагач initializePageTooltips() чақирамиз.
+
+            const activeTabButtonBeforeUpdate = directionsTab.querySelector('.nav-link.active');
+            if (activeTabButtonBeforeUpdate) {
+                currentActiveTabId = activeTabButtonBeforeUpdate.id;
+            }
+
+            if(loadingIndicator) {
+                loadingIndicator.style.display = 'inline-flex';
+                if(loadingIndicatorText) loadingIndicatorText.textContent = js_i18n.loading_indicator_text_val;
+            }
+            directionsTab.innerHTML = '';
+            directionsTabContent.innerHTML = '';
+
+            try {
+                const response = await fetch("{% url 'public_results_api' %}");
+                if (!response.ok) {
+                    console.error(js_i18n.error_fetching_api_data, response.statusText);
+                    directionsTabContent.innerHTML = `<div class="alert alert-danger mt-3">${js_i18n.error_loading_results}</div>`;
+                    return;
+                }
+                const data = await response.json();
+                // console.log("Data from API for tabs:", JSON.parse(JSON.stringify(data))); // Дебаг учун
+
+                if (!data.directions || data.directions.length === 0) {
+                    directionsTabContent.innerHTML = `<div class="alert alert-info mt-3">${js_i18n.no_directions_available}</div>`;
+                    return;
+                }
+                
+                let isFirstIteration = true; 
+
+                data.directions.forEach(direction => {
+                    const tabId = `direction-${direction.id}-tab`;
+                    const paneId = `direction-${direction.id}-tab-pane`;
+                    let isActive = false;
+
+                    if (currentActiveTabId === tabId) {
+                        isActive = true;
+                    } else if (!currentActiveTabId && isFirstIteration) {
+                        isActive = true;
+                    }
+                    
+                    const navItem = document.createElement('li');
+                    navItem.className = 'nav-item';
+                    navItem.setAttribute('role', 'presentation');
+
+                    const navButton = document.createElement('button');
+                    navButton.className = 'nav-link' + (isActive ? ' active' : '');
+                    navButton.id = tabId;
+                    navButton.setAttribute('data-bs-toggle', 'tab');
+                    navButton.setAttribute('data-bs-target', `#${paneId}`);
+                    navButton.type = 'button';
+                    navButton.setAttribute('role', 'tab');
+                    navButton.setAttribute('aria-controls', paneId);
+                    navButton.setAttribute('aria-selected', isActive.toString());
+                    navButton.textContent = direction.name || `${js_i18n.direction_tab_default_prefix} ${direction.id}`;
+
+                    navItem.appendChild(navButton);
+                    directionsTab.appendChild(navItem);
+
+                    const tabPane = document.createElement('div');
+                    tabPane.className = 'tab-pane fade' + (isActive ? ' show active' : '');
+                    tabPane.id = paneId;
+                    tabPane.setAttribute('role', 'tabpanel');
+                    tabPane.setAttribute('aria-labelledby', tabId);
+                    tabPane.setAttribute('tabindex', '0');
+                    
+                    const resultsForThisDirection = data.results_by_direction[direction.id.toString()] || [];
+                    tabPane.innerHTML = buildSingleTableHTML(resultsForThisDirection, data.criteria_list, direction.name || `${js_i18n.direction_tab_default_prefix} ${direction.id}`);
+                    directionsTabContent.appendChild(tabPane);
+                    
+                    if (isActive) {
+                        isFirstIteration = false;
+                    }
+                });
+
+                if (!directionsTab.querySelector('.nav-link.active') && directionsTab.firstChild) {
+                    const firstTabButton = directionsTab.firstChild.querySelector('.nav-link');
+                    const firstPaneId = firstTabButton.getAttribute('data-bs-target');
+                    const firstPane = document.querySelector(firstPaneId);
+                    
+                    if (firstTabButton && firstPane) {
+                        firstTabButton.classList.add('active');
+                        firstTabButton.setAttribute('aria-selected', 'true');
+                        firstPane.classList.add('show', 'active');
+                        currentActiveTabId = firstTabButton.id; 
+                    }
+                }
+                
+                scrollActiveTabIntoView();
+                initializePageTooltips(); // Асосий саҳифадаги tooltip'ларни инициализация қиламиз
+
+            } catch (error) { 
+                console.error(js_i18n.error_updating_data, error);
+                directionsTabContent.innerHTML = `<div class="alert alert-danger mt-3">${js_i18n.error_updating_data}</div>`;
+            } finally {
+                if(loadingIndicator) loadingIndicator.style.display = 'none';
+            }
+        }
+        
+        // Команда деталларини юклаш ва модалда кўрсатиш функцияси
+        async function fetchAndDisplayTeamDetails(teamId, teamName) {
+            if (!teamDetailsModalInstance || !teamId) {
+                console.warn("Modal instance or teamId is missing for fetching details.");
+                if (teamDetailsContentEl) {
+                     teamDetailsContentEl.innerHTML = `<div class="alert alert-warning">${js_i18n.error_undefined_team}</div>`;
+                }
+                return;
+            }
+
+            if (modalTeamNameEl) modalTeamNameEl.textContent = teamName;
+            if (teamDetailsContentEl) teamDetailsContentEl.innerHTML = `<div class="d-flex justify-content-center align-items-center p-5"><div class="spinner-border text-primary" role="status"><span class="visually-hidden">${js_i18n.loading_data_text}</span></div> <strong_class="ms-2">${js_i18n.loading_data_text}</strong></div>`;
+            
+            try {
+                let apiUrl = "{% url 'team_evaluation_details_api' 0 %}".replace('/0/', `/${teamId}/`);
+                console.log("Fetching team details from:", apiUrl);
+                
+                const response = await fetch(apiUrl);
+                if (!response.ok) {
+                    console.error("Error fetching team details API:", response.status, response.statusText);
+                    if (teamDetailsContentEl) teamDetailsContentEl.innerHTML = `<div class="alert alert-danger">${js_i18n.error_loading_results} (Status: ${response.status})</div>`;
+                    return;
+                }
+                const data = await response.json();
+                // console.log("Team details from API:", JSON.parse(JSON.stringify(data))); // Дебаг учун
+
+                if (data.results_by_judge && data.results_by_judge.length > 0) {
+                    let modalTableHtml = `
+                        <table class="table table-sm table-bordered table-hover">
+                            <thead class="table-light">
+                                <tr>
+                                    <th>${js_i18n.judge_col_header}</th>`;
+                    data.all_criteria.forEach(crit => {
+                        modalTableHtml += `<th class="text-center" data-bs-toggle="tooltip" title="${crit.name}">${js_i18n.criterion_header_prefix}${crit.order}</th>`;
+                    });
+                    modalTableHtml += `<th class="text-center">${js_i18n.total_score_header}</th>
+                                </tr>
+                            </thead>
+                            <tbody>`;
+                    data.results_by_judge.forEach(judgeEval => {
+                        modalTableHtml += `<tr>
+                                            <td><strong>${judgeEval.judge_fullname}</strong></td>`;
+                        data.all_criteria.forEach(crit => {
+                            const scoreEntry = judgeEval.scores_by_criterion.find(s => s.criterion_id === crit.id);
+                            modalTableHtml += `<td class="text-center">${scoreEntry ? scoreEntry.score : '-'}</td>`;
+                        });
+                        modalTableHtml += `<td class="text-center"><strong>${judgeEval.total_score}</strong></td>
+                                        </tr>`;
+                    });
+                    modalTableHtml += `</tbody></table>`;
+                    if (teamDetailsContentEl) teamDetailsContentEl.innerHTML = modalTableHtml;
+                    if (teamDetailsContentEl) initializeModalTooltips(teamDetailsContentEl); // Модал ичидаги tooltip'лар
+                } else {
+                    if (teamDetailsContentEl) teamDetailsContentEl.innerHTML = `<div class="alert alert-info">${js_i18n.no_evaluations_found}</div>`;
+                }
+            } catch (error) {
+                console.error("Error processing team details:", error);
+                if (teamDetailsContentEl) teamDetailsContentEl.innerHTML = `<div class="alert alert-danger">${js_i18n.error_loading_results}</div>`;
+            }
+        }
+
+        // Модал "кўрсатилишидан олдин" маълумотни юклаш учун event listener
+        if (teamDetailsModalEl) {
+            teamDetailsModalEl.addEventListener('show.bs.modal', function (event) {
+                const triggeringElement = event.relatedTarget; // Модални чақирган элемент (<tr>)
+                if (triggeringElement && triggeringElement.classList.contains('team-row')) {
+                    const teamId = triggeringElement.dataset.teamId;
+                    const teamName = triggeringElement.dataset.teamName; // data-team-name дан оламиз
+                    
+                    // console.log("Modal show event. Team ID:", teamId, "Team Name:", teamName); // Дебаг учун
+
+                    if (teamId && teamName) {
+                        fetchAndDisplayTeamDetails(teamId, teamName);
+                    } else {
+                        console.warn("Could not get teamId or teamName from triggering element.");
+                        if (modalTeamNameEl) modalTeamNameEl.textContent = '';
+                        if (teamDetailsContentEl) teamDetailsContentEl.innerHTML = `<div class="alert alert-warning">${js_i18n.error_undefined_team}</div>`;
+                    }
+                }
+            });
+
+            // Модал ёпилганда контентни ва tooltip'ларни тозалаш
+            teamDetailsModalEl.addEventListener('hidden.bs.modal', function () {
+                if (modalTeamNameEl) modalTeamNameEl.textContent = '';
+                if (teamDetailsContentEl) {
+                    teamDetailsContentEl.innerHTML = `<div class="d-flex justify-content-center align-items-center p-5"><div class="spinner-border text-primary" role="status"><span class="visually-hidden">${js_i18n.loading_data_text}</span></div> <strong class="ms-2">${js_i18n.loading_data_text}</strong></div>`;
+                    disposeModalTooltips(teamDetailsContentEl);
+                }
+            });
+        }
+
+        fetchAndBuildTabs(); // Асосий tab'ларни биринчи марта юклаш
+        setInterval(fetchAndBuildTabs, 30000); // Периодик равишда янгилаш
+
+        // Tab'лар алмашишини кузатиш (актив tab'ни кўринишга келтириш учун)
+        directionsTab.addEventListener('shown.bs.tab', function (event) {
+            scrollActiveTabIntoView();
+        });
+    });
+</script>
+{% endblock %}

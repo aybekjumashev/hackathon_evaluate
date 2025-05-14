@@ -1,0 +1,113 @@
+{% load static %}
+{% load i18n %} {# <--- 1. i18n тегини юклаймиз #}
+{% load i18n_custom_tags %}
+
+<!doctype html>
+<html lang="{{ LANGUAGE_CODE }}"> {# <--- 2. 'ru' ўрнига LANGUAGE_CODE ишлатамиз #}
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>{% block title %}{% translate "Хакатон" %}{% endblock %}</title> {# <--- 3. Сарлавҳани таржима учун белгилаймиз #}
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
+    <style>
+        body { padding-top: 5rem; }
+        .form-signin { max-width: 330px; padding: 15px; margin: auto; }
+    </style>
+    {% block extra_css %}{% endblock %}
+</head>
+<body>
+    <nav class="navbar navbar-expand-md navbar-dark bg-dark fixed-top">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="{% url 'public_results' %}">{% translate "Результаты Хакатона" %}</a> {# <--- 4. Бренд номини таржима учун белгилаймиз #}
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="{% translate 'Toggle navigation' %}"> {# <--- 5. "Toggle navigation" матнини таржима учун белгилаймиз #}
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarCollapse">
+                <ul class="navbar-nav ms-auto mb-2 mb-lg-0"> {# ms-auto аввалдан бор эди, mb-2 mb-lg-0 қўшилган эди #}
+                    {# 6. Тил алмаштиргични қўшамиз #}
+                    <li class="nav-item dropdown me-2 my-auto">
+                        <a class="nav-link dropdown-toggle" href="#" id="languageDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            <i class="bi bi-translate"></i> {% translate "Тил" %}
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="languageDropdown">
+                            {# get_current_language ўрнига CURRENT_LANGUAGE_CODE (контекст процессоридан) #}
+                            {# get_language_info_list ўрнига SITE_LANGUAGES (контекст процессоридан) #}
+                            {% for lang_code, lang_name in SITE_LANGUAGES %}
+                                <li>
+                                    <form action="{% url 'set_language' %}" method="post" class="dropdown-item p-0">
+                                        {% csrf_token %}
+                                        <input name="next" type="hidden" value='{{ request.path|cut:"/ru" }}'>
+                                        <script>console.log('{{ request.path|urlencode }}')</script>
+                                        <button type="submit" name="language" value="{{ lang_code }}"
+                                                class="btn btn-link text-decoration-none text-start w-100 {% if lang_code == CURRENT_LANGUAGE_CODE %}active text-white bg-primary{% else %}text-dark{% endif %}">
+                                            {{ lang_name }} <small class="text-muted">({{ lang_code }})</small>
+                                        </button>
+                                    </form>
+                                </li>
+                            {% empty %}
+                                <li class="dropdown-item disabled">{% translate "Тиллар мавжуд эмас" %}</li>
+                            {% endfor %}
+                        </ul>
+                    </li>
+                </ul>
+                <ul class="navbar-nav"> {# Қолган меню элементлари учун алоҳида <ul> #}
+                    <li class="nav-item my-auto">
+                        <button type="button" class="btn btn-outline-primary me-2" data-bs-toggle="modal" data-bs-target="#exampleModal">{% translate "QR код" %}</button> {# <--- 7. "QR код" матнини таржима учун белгилаймиз #}
+                    </li>
+                    <li class="nav-item my-auto me-3">
+                        <a class="btn btn-outline-primary" href="{% url 'evaluate' %}">{% translate "Оценивание" %}</a> {# <--- 8. "Оценивание" матнини таржима учун белгилаймиз #}
+                    </li>
+                    {% if user.is_authenticated %}
+                        <li class="nav-item my-auto dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false"> {# id қўшдим, href="#" #}
+                                {{ user.username }}
+                            </a>
+                            <ul class="dropdown-menu dropdown-menu-end dropdown-menu-light" aria-labelledby="userDropdown"> {# dropdown-menu-end қўшдим, aria-labelledby #}
+                                <li> {# form'ни li ичига олдим #}
+                                    <form method="post" class="dropdown-item p-0" action="{% url 'logout' %}"> {# class="dropdown-item p-0" form'га #}
+                                        {% csrf_token %}
+                                        <button type="submit" class="btn btn-link text-danger text-decoration-none w-100 text-start">{% translate "Выйти" %}</button> {# <--- 9. "Выйти" матнини таржима учун белгилаймиз, стиллар #}
+                                    </form>
+                                </li>
+                            </ul>
+                        </li>
+                    {% endif %}
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <main class="container p-4">
+        {% if messages %}
+            {% for message in messages %}
+                <div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
+                    {{ message }} {# Бу views.py дан _() билан ўралган ҳолда келиши керак #}
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="{% translate 'Close' %}"></button> {# <--- 10. "Close" матнини таржима учун белгилаймиз #}
+                </div>
+            {% endfor %}
+        {% endif %}
+        {% block content %}{% endblock %}
+    </main>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js" integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN" crossorigin="anonymous"></script>
+    {% block extra_js %}{% endblock %}
+
+    <!-- Modal -->
+    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="exampleModalLabel">{% translate "QR код" %}</h1> {# <--- 11. Модал сарлавҳасини таржима учун белгилаймиз #}
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="{% translate 'Закрыть' %}"></button> {# <--- 12. Модал "Закрыть" матнини таржима учун белгилаймиз #}
+                </div>
+                <div class="modal-body">
+                    <div class="w-100 text-center">
+                        <img src="{% url 'qr_code' %}" class="w-75" alt="{% translate 'QR код' %}" /> 
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

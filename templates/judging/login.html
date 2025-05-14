@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+{% load i18n %} {# <--- i18n тегини юклаймиз #}
+
+{% block title %}{% translate "Вход в систему" %}{% endblock %}
+
+{% block content %}
+<div class="form-signin text-center">
+    <form method="post">
+        {% csrf_token %}
+
+        {% if form.errors %}
+          <div class="alert alert-danger">
+            {% translate "Ваш логин или пароль не совпадают. Пожалуйста, попробуйте снова." %}
+          </div>
+        {% endif %}
+
+        {% if next %}
+          {% if user.is_authenticated %}
+            <p class="alert alert-warning">{% translate "Ваша учетная запись не имеет прав доступа к этой странице. Для продолжения, войдите с другой учетной записью." %}</p>
+          {% else %}
+            <p class="alert alert-info">{% translate "Пожалуйста, войдите в систему, чтобы просмотреть эту страницу." %}</p>
+          {% endif %}
+        {% endif %}
+
+        <div class="form-floating mb-3">
+            <input type="text" name="username" class="form-control" id="floatingInput" placeholder="{% translate 'Логин' %}" autofocus required>
+            <label for="floatingInput">{% translate "Логин" %}</label>
+        </div>
+        <div class="form-floating mb-3">
+            <input type="password" name="password" class="form-control" id="floatingPassword" placeholder="{% translate 'Пароль' %}" required>
+            <label for="floatingPassword">{% translate "Пароль" %}</label>
+        </div>
+
+        <button class="w-100 btn btn-lg btn-primary" type="submit">{% translate "Войти" %}</button>
+    </form>
+</div>
+{% endblock %}

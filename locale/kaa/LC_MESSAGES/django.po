@@ -1,0 +1,471 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2025-05-14 23:12+0500\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: .\hackathon_platform\settings.py:105
+msgid "Qaraqalpaqsha"
+msgstr "Qaraqalpaqsha"
+
+#: .\hackathon_platform\settings.py:106
+msgid "Русский"
+msgstr "Russ"
+
+#: .\judging\admin.py:24
+msgid "Ҳакам профили (Йўналиш)"
+msgstr "Tóreshi profili (Jónelis)"
+
+#: .\judging\models.py:8
+msgid "Йўналиш номи"
+msgstr "Jónelis atı"
+
+#: .\judging\models.py:9
+msgid "Қисқача тавсиф"
+msgstr "Qısqasha maǵlıwmat"
+
+#: .\judging\models.py:15
+msgid "Йўналиш"
+msgstr "Jónelis"
+
+#: .\judging\models.py:16
+msgid "Йўналишлар"
+msgstr "Jónelisler"
+
+#: .\judging\models.py:20
+msgid "Жамоа номи"
+msgstr "Topar atı"
+
+#: .\judging\models.py:24
+msgid "Йўналиши"
+msgstr "Jónelisi"
+
+#: .\judging\models.py:31 .\judging\models.py:61
+msgid "Жамоа"
+msgstr "Topar"
+
+#: .\judging\models.py:32
+msgid "Жамоалар"
+msgstr "Toparlar"
+
+#: .\judging\models.py:36
+msgid "Тартиб рақами (T/P)"
+msgstr "Tártip nomeri (T/P)"
+
+#: .\judging\models.py:37 .\judging\models.py:48
+msgid "Баҳолаш мезони"
+msgstr "Bahalaw kriteriyası"
+
+#: .\judging\models.py:38
+msgid "Максимал балл"
+msgstr "Maksimal ball"
+
+#: .\judging\models.py:39
+msgid "Изоҳ (мезонни баҳолаш учун қўлланма)"
+msgstr "Bahalaw ushın qollanba"
+
+#: .\judging\models.py:49
+msgid "Баҳолаш мезонлари"
+msgstr "Bahalaw kriteriyaları"
+
+#: .\judging\models.py:60
+msgid "Ҳакам"
+msgstr "Tóreshi"
+
+#: .\judging\models.py:62
+msgid "Мезон"
+msgstr "Kriteriya"
+
+#: .\judging\models.py:64
+msgid "Берилган балл"
+msgstr "Berilgen ball"
+
+#: .\judging\models.py:71
+msgid "Ҳолати"
+msgstr "Hal"
+
+#: .\judging\models.py:73
+msgid "Баҳолаш вақти"
+msgstr "Bahalaw waqtı"
+
+#: .\judging\models.py:74
+msgid "Охирги янгиланиш"
+msgstr "Aqırǵı jańalanıw"
+
+#: .\judging\models.py:88
+msgid "Баҳо"
+msgstr "Baha"
+
+#: .\judging\models.py:89
+msgid "Баҳолар"
+msgstr "Bahalar"
+
+#: .\judging\models.py:96
+msgid "Ҳакам (Фойдаланувчи)"
+msgstr "Tóreshi (Paydalanıwshı)"
+
+#: .\judging\models.py:103
+msgid "Масъул йўналиш (ихтиёрий)"
+msgstr "Bekitilgen jónelis (ixtiyarıy)"
+
+#: .\judging\models.py:104
+msgid ""
+"Агар йўналиш танланмаса, ҳакам барча йўналишлардаги жамоаларни баҳолай олади."
+msgstr ""
+"Eger jónelis saylanbasa, tóreshi barlıq jónelislerdegi toparlardı bahalay "
+"aladı."
+
+#: .\judging\models.py:113
+msgid "Ҳакам профили"
+msgstr "Tóreshi profili"
+
+#: .\judging\models.py:114
+msgid "Ҳакам профиллари"
+msgstr "Tóreshi profilleri"
+
+#: .\judging\views.py:120
+msgid "Оценки для этой команды уже были финализированы."
+msgstr "Bul topar ushın bahalaw juwmaqlanǵan."
+
+#: .\judging\views.py:125
+msgid "Тип сохранения оценок не выбран."
+msgstr "bahanı saqlaw túri saylanbaǵan"
+
+#: .\judging\views.py:160
+msgid "неизвестный"
+msgstr "belgisiz"
+
+#: .\judging\views.py:162 .\templates\judging\evaluate_team.html:51
+#: .\templates\judging\evaluate_team.html:110
+msgid "Итоговая"
+msgstr "Final"
+
+#: .\judging\views.py:164 .\templates\judging\evaluate_team.html:53
+#: .\templates\judging\evaluate_team.html:105
+msgid "Черновик"
+msgstr "Qaralama"
+
+#: .\templates\base.html:10
+msgid "Хакатон"
+msgstr "Hakaton"
+
+#: .\templates\base.html:22
+msgid "Результаты Хакатона"
+msgstr "Hakaton nátiyjeleri"
+
+#: .\templates\base.html:23
+msgid "Toggle navigation"
+msgstr "Navigatsiyanı ashıp jabıw"
+
+#: .\templates\base.html:31
+msgid "Тил"
+msgstr "Til"
+
+#: .\templates\base.html:49
+msgid "Тиллар мавжуд эмас"
+msgstr ""
+
+#: .\templates\base.html:56 .\templates\base.html:101 .\templates\base.html:106
+msgid "QR код"
+msgstr "QR kod"
+
+#: .\templates\base.html:59
+msgid "Оценивание"
+msgstr "Bahalaw"
+
+#: .\templates\base.html:70
+msgid "Выйти"
+msgstr "Shıǵıw"
+
+#: .\templates\base.html:86
+msgid "Close"
+msgstr "Jabıw"
+
+#: .\templates\base.html:102 .\templates\judging\public_results.html:74
+#: .\templates\judging\public_results.html:82
+msgid "Закрыть"
+msgstr "Jabıw"
+
+#: .\templates\judging\evaluate_team.html:5
+#, python-format
+msgid "Оценка: %(team.name)s"
+msgstr "Bahalaw: %(team.name)s"
+
+#: .\templates\judging\evaluate_team.html:26
+#, python-format
+msgid "Оценка команды: %(team.name)s"
+msgstr "Topar bahası: %(team.name)s"
+
+#: .\templates\judging\evaluate_team.html:27
+msgid "Выберите необходимую оценку для каждого критерия."
+msgstr "Hár bir kriteriya ushın kerekli bólimdi saylań"
+
+#: .\templates\judging\evaluate_team.html:31
+msgid ""
+"Все оценки для этой команды были вами финализированы. Их нельзя изменить."
+msgstr ""
+"Bul topar ushın barlıq kriteriyalar siz tárepten juwmaqlanǵan. Olardı "
+"ózgertiwdiń iláji joq."
+
+#: .\templates\judging\evaluate_team.html:47
+msgid "Макс:"
+msgstr "Maks:"
+
+#: .\templates\judging\evaluate_team.html:47
+msgid "балл"
+msgstr "ball"
+
+#: .\templates\judging\evaluate_team.html:47
+msgid "балла"
+msgstr "ball"
+
+#: .\templates\judging\evaluate_team.html:47
+msgid "баллов"
+msgstr "ball"
+
+#: .\templates\judging\evaluate_team.html:55 .\templates\judging\home.html:58
+msgid "Не оценено"
+msgstr "Bahalanbaǵan"
+
+#: .\templates\judging\evaluate_team.html:65
+msgid "Ваша оценка:"
+msgstr "Sizdiń bahańız:"
+
+#: .\templates\judging\evaluate_team.html:66
+#, python-format
+msgid "Оценка для %(criterion.name)s"
+msgstr "%(criterion.name)s ushın baha"
+
+#: .\templates\judging\evaluate_team.html:89
+msgid "Критерии оценивания еще не были добавлены."
+msgstr "Bahalaw kriteriyaları ele qosılmaǵan"
+
+#: .\templates\judging\evaluate_team.html:100
+msgid "Завершение оценивания"
+msgstr "Bahalawdı juwmaqlaw"
+
+#: .\templates\judging\evaluate_team.html:101
+msgid "Пожалуйста, выберите статус для ваших оценок."
+msgstr "Bahalaw ushın kerekli statustı saylań"
+
+#: .\templates\judging\evaluate_team.html:102
+msgid "Завершение типа оценки"
+msgstr "Bahalaw túrin juwmaqlaw"
+
+#: .\templates\judging\evaluate_team.html:114
+msgid ""
+"Если выбрано \"Итоговая\", введенные оценки станут окончательными, не "
+"подлежащими изменению, и будут учтены в общих результатах."
+msgstr ""
+"Eger \"Final\" statusın saylaǵan bolsańız, kiritilgen bahalar juwmaqlawshi sheshim esaplanadı hám ulıwmalıq "
+"nátiyjelerde esapqa alınadı."
+
+#: .\templates\judging\evaluate_team.html:123
+msgid "Сохранить Оценки"
+msgstr "Bahalardı saqlaw"
+
+#: .\templates\judging\evaluate_team.html:126
+msgid "Отмена"
+msgstr "Biykarlaw"
+
+#: .\templates\judging\evaluate_team.html:134
+msgid "Вернуться на главную"
+msgstr "Bas betke qaytıw"
+
+#: .\templates\judging\home.html:5 .\templates\judging\home.html:8
+msgid "Оценивание Команд"
+msgstr "Topardı bahalaw"
+
+#: .\templates\judging\home.html:9
+msgid ""
+"Выберите команды ниже, чтобы оценить их по критериям или просмотреть ваши "
+"оценки."
+msgstr "Kriteriya boyınsha bahalaw ushın tómendegi toparlardı saylań."
+
+#: .\templates\judging\home.html:22 .\templates\judging\public_results.html:95
+msgid "Название Команды"
+msgstr "Topar atı"
+
+#: .\templates\judging\home.html:23 .\templates\judging\public_results.html:104
+msgid "Направление"
+msgstr "Jónelis"
+
+#: .\templates\judging\home.html:27
+#, python-format
+msgid "К%(order_num)s"
+msgstr "К%(order_num)s"
+
+#: .\templates\judging\home.html:30
+msgid "Статус"
+msgstr "Status"
+
+#: .\templates\judging\home.html:31
+msgid "Действия"
+msgstr "Háreket"
+
+#: .\templates\judging\home.html:52
+msgid "Завершено"
+msgstr "Juwmaqlandı"
+
+#: .\templates\judging\home.html:54
+msgid "В черновике"
+msgstr "Qaraqalamada"
+
+#: .\templates\judging\home.html:56
+msgid "Частично оценено"
+msgstr "Bir bólimi bahalanǵan"
+
+#: .\templates\judging\home.html:65
+msgid "Просмотреть оценки (нельзя изменить)"
+msgstr "bahalardı kóriw (ózgertiwdiń iláji joq)"
+
+#: .\templates\judging\home.html:67
+msgid "Оценить / Редактировать"
+msgstr "Bahalaw / Ózgertiw"
+
+#: .\templates\judging\home.html:70
+msgid "Смотреть"
+msgstr "Kóriw"
+
+#: .\templates\judging\home.html:72
+msgid "Оценить"
+msgstr "Bahalaw"
+
+#: .\templates\judging\home.html:82
+msgid "В настоящее время нет команд для оценки или критерии не введены."
+msgstr "Bahalaw ushın toparlar joq yamasa kriteriyalar kiritilmegen"
+
+#: .\templates\judging\login.html:4
+msgid "Вход в систему"
+msgstr "Sistemaǵa kiriw"
+
+#: .\templates\judging\login.html:13
+msgid "Ваш логин или пароль не совпадают. Пожалуйста, попробуйте снова."
+msgstr ""
+"Sizdiń login yaki parol tuwrı kelmeydi. Iltimas, qayta háreket etip kóriń."
+
+#: .\templates\judging\login.html:19
+msgid ""
+"Ваша учетная запись не имеет прав доступа к этой странице. Для продолжения, "
+"войдите с другой учетной записью."
+msgstr ""
+"Akkauntıńız bul betke kiriw huqıqına iye emes. Dawam etiw ushınbasqa akkaunt "
+"penen kiriń."
+
+#: .\templates\judging\login.html:21
+msgid "Пожалуйста, войдите в систему, чтобы просмотреть эту страницу."
+msgstr "Bul betti kóriw ushın sistemaǵa kiriń."
+
+#: .\templates\judging\login.html:26 .\templates\judging\login.html:27
+msgid "Логин"
+msgstr "Login"
+
+#: .\templates\judging\login.html:30 .\templates\judging\login.html:31
+msgid "Пароль"
+msgstr "Parol"
+
+#: .\templates\judging\login.html:34
+msgid "Войти"
+msgstr "Kiriw"
+
+#: .\templates\judging\public_results.html:6
+msgid "Общие Результаты (по Направлениям)"
+msgstr "Barlıq Nátiyjeler (jónelisler boyınsha)"
+
+#: .\templates\judging\public_results.html:42
+msgid "Общие Результаты Оценивания"
+msgstr "Ulıwmalıq bahalaw nátiyjeleri"
+
+#: .\templates\judging\public_results.html:45
+#: .\templates\judging\public_results.html:107
+msgid "Обновление..."
+msgstr "Jańalanıw..."
+
+#: .\templates\judging\public_results.html:73
+#: .\templates\judging\public_results.html:109
+msgid "Детали Оценки Команды:"
+msgstr "Komandanıń bahalanıwı haqqında tolıq maǵlıwmat:"
+
+#: .\templates\judging\public_results.html:93
+#, python-brace-format
+msgid "В этом направлении ({directionName}) пока нет итоговых результатов."
+msgstr ""
+"Bul jónelis ({directionName}) boyınsha ele juwmaqlawshı nátiyjeler joq."
+
+#: .\templates\judging\public_results.html:94
+msgid "№"
+msgstr "№"
+
+#: .\templates\judging\public_results.html:96
+msgid "К"
+msgstr "K"
+
+#: .\templates\judging\public_results.html:97
+msgid "Критерий"
+msgstr "Kriteriya"
+
+#: .\templates\judging\public_results.html:98
+msgid "Макс. балл:"
+msgstr "Maks. ball:"
+
+#: .\templates\judging\public_results.html:99
+msgid "для каждого судьи"
+msgstr "hár bir tóreshiler ushın"
+
+#: .\templates\judging\public_results.html:100
+msgid "Общий балл"
+msgstr "Ulıwma ball"
+
+#: .\templates\judging\public_results.html:101
+msgid "Команда"
+msgstr "Topar"
+
+#: .\templates\judging\public_results.html:102
+msgid ""
+"Произошла ошибка при загрузке результатов. Пожалуйста, попробуйте позже."
+msgstr "Nátiyjelerdi júklewde qátelik. Keyinrek háreket etip kóriń."
+
+#: .\templates\judging\public_results.html:103
+msgid ""
+"В настоящее время нет доступных направлений для отображения результатов."
+msgstr "Nátiyjelerdi kórsetiw ushın házirshe kórsetpeler joq."
+
+#: .\templates\judging\public_results.html:105
+msgid "Ошибка при получении данных из API:"
+msgstr "API den maǵlıwmat alıwda qátelik:"
+
+#: .\templates\judging\public_results.html:106
+msgid "Ошибка при обновлении данных:"
+msgstr "Maǵlıwmatlardı jańalawda qátelik:"
+
+#: .\templates\judging\public_results.html:110
+msgid "Загрузка данных..."
+msgstr "Maǵlıwmatlar júklenbekte..."
+
+#: .\templates\judging\public_results.html:111
+msgid "Судья"
+msgstr "Tóreshi"
+
+#: .\templates\judging\public_results.html:112
+msgid "Для этой команды нет завершенных оценок от судей."
+msgstr "Bul topar ushın baha qoyǵan tóreshiler dizimi joq"
+
+#: .\templates\judging\public_results.html:113
+#, fuzzy
+#| msgid ""
+#| "В настоящее время нет доступных направлений для отображения результатов."
+msgid "Не удалось определить команду для отображения деталей."
+msgstr "Nátiyjelerdi kórsetiw ushın házirshe kórsetpeler joq."
