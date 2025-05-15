@@ -138,5 +138,35 @@
 {% endblock %}
 
 {% block extra_js %}
-{# JavaScript валидация здесь не требуется, так как радиокнопки предоставляют корректные значения #}
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+    // Ҳар бир score-radio-group учун алоҳида event listener қўямиз
+    const radioGroups = document.querySelectorAll('.score-radio-group');
+
+    radioGroups.forEach(group => {
+        const radioInputs = group.querySelectorAll('input.btn-check[type="radio"]');
+        
+        radioInputs.forEach(radioInput => {
+            radioInput.addEventListener('change', function () {
+                // Агар бу радио танланса (checked бўлса)
+                if (this.checked) {
+                    // Ўша гуруҳдаги барча label'лардан 'btn-primary' ни олиб ташлаймиз ва 'btn-outline-primary' қўшамиз
+                    const labelsInGroup = group.querySelectorAll('label.btn');
+                    labelsInGroup.forEach(label => {
+                        label.classList.remove('btn-primary');
+                        label.classList.add('btn-outline-primary');
+                    });
+
+                    // Танланган радиога тегишли label'га 'btn-primary' қўшамиз ва 'btn-outline-primary' ни олиб ташлаймиз
+                    const currentLabel = group.querySelector(`label[for="${this.id}"]`);
+                    if (currentLabel) {
+                        currentLabel.classList.add('btn-primary');
+                        currentLabel.classList.remove('btn-outline-primary');
+                    }
+                }
+            });
+        });
+    });
+});
+</script>
 {% endblock %}

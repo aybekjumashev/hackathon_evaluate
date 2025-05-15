@@ -322,7 +322,7 @@ msgstr "Juwmaqlandı"
 
 #: .\templates\judging\home.html:54
 msgid "В черновике"
-msgstr "Qaraqalamada"
+msgstr "Qaralamada"
 
 #: .\templates\judging\home.html:56
 msgid "Частично оценено"
