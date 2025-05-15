@@ -18,6 +18,7 @@ class Direction(models.Model):
 
 class Team(models.Model):
     name = models.CharField(max_length=200, unique=True, verbose_name=_("Жамоа номи"))
+    order = models.PositiveIntegerField(unique=True, verbose_name=_("Тартиб рақами (T/P)"))
     direction = models.ForeignKey(
         Direction, 
         on_delete=models.PROTECT, # Агар йўналиш ўчирилса, жамоа йўналишсиз қолади (ёки models.PROTECT)

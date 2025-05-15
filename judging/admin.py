@@ -12,7 +12,7 @@ class DirectionAdmin(admin.ModelAdmin):
 
 @admin.register(Team)
 class TeamAdmin(admin.ModelAdmin):
-    list_display = ('name', 'direction')
+    list_display = ('name', 'direction', 'order')
     list_filter = ('direction',)
     search_fields = ('name', 'direction__name')
     autocomplete_fields = ['direction'] # Бу DirectionAdmin рўйхатдан ўтгандан кейин ишлайди
