@@ -178,7 +178,7 @@
                 const tooltipTitle = `${criterion.name || js_i18n.criterion_tooltip_default} (${js_i18n.max_score_tooltip_prefix} ${criterion.max_score} ${js_i18n.for_each_judge_tooltip_suffix})`;
                 tableHtml += `<th scope="col" class="text-center" data-bs-toggle="tooltip" data-bs-placement="top" title="${tooltipTitle}">${js_i18n.criterion_header_prefix}${criterion.order} <small class="text-muted"></small></th>`;
             });
-            tableHtml += `    <th scope="col" class="text-center">${js_i18n.total_score_header} <small class="text-muted"></small></th><th></th>
+            tableHtml += `    <th scope="col" class="text-center">${js_i18n.total_score_header} <small class="text-muted"></small></th><th style='width: 50px'></th>
                             </tr>
                         </thead>
                         <tbody>`;
@@ -190,7 +190,7 @@
                     const score = item.scores_by_criterion[criterion.id] !== undefined ? item.scores_by_criterion[criterion.id] : "0";
                     tableHtml += `<td class="text-center">${score}</td>`;
                 });
-                tableHtml += `    <td class="text-center"><strong>${item.total_score}</strong></td><td><button class='btn btn-primary btn-view-row' data-team-id="${item.team_id}" data-team-name="${item.team_name || js_i18n.team_name_placeholder}" data-bs-toggle="modal" data-bs-target="#teamDetailsModal"><i class="bi bi-eye"></i></button></td>
+                tableHtml += `    <td class="text-center"><strong>${item.total_score}</strong></td><td><button class='btn btn-primary btn-view-row py-0' data-team-id="${item.team_id}" data-team-name="${item.team_name || js_i18n.team_name_placeholder}" data-bs-toggle="modal" data-bs-target="#teamDetailsModal"><i class="bi bi-eye"></i></button></td>
                             </tr>`;
             });
             tableHtml += `</tbody></table></div>`;

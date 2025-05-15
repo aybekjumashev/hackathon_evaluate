@@ -23,7 +23,7 @@
 {% endblock %}
 
 {% block content %}
-<h2>{% blocktranslate %}Оценка команды: {{ team.name }}{% endblocktranslate %}</h2>
+<h2>{% blocktranslate %}Оценка команды: {{ team.name }}{% endblocktranslate %}{{ team.name }}</h2>
 <p>{% translate "Выберите необходимую оценку для каждого критерия." %}</p>
 
 {% if all_scores_final %}
